@@ -7,12 +7,13 @@ import Products from './pages/Products'
 import About from './pages/About'
 import { Route, Routes } from 'react-router-dom'
 import Contact from './pages/Contact'
-import Account from './pages/Account'
+import ManageAccount from './pages/ManageAccount'
 import NotFound from './pages/NotFound'
 import ProductDetails from './pages/ProductDetails'
 import Cart from './pages/Cart'
 import WishList from './pages/Wishlist'
 import Checkout from './pages/Checkout'
+import EditProfileForm from './pages/EditProfileForm'
 function App() {
   
 
@@ -27,8 +28,10 @@ function App() {
     <Route path='/about' element={<About/>}/>
     <Route path='/contact' element={<Contact/>}/>
     <Route path="/products" element={<Products/>}/>
-    <Route path="/account" element={<Account/>}/>
+    <Route path="/manage_account" element={<ManageAccount/>}/>
     <Route path="/cart" element={<Cart/>}/>
+    <Route path="/EditProfileForm" element={<EditProfileForm/>}/>
+    
     <Route path="/checkout" element={<Checkout/>}/>
     <Route path="/wishlist" element={<WishList/>}/>
     <Route path="/product_details" element={<ProductDetails/>}/>

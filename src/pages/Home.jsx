@@ -209,7 +209,9 @@ const Home = () => {
               <div className="absolute ml-[10rem] mt-8 w-52 bg-[#000000]/[10%] backdrop-blur-xl backdrop-opacity-95  rounded-  z-50">
                 <ul className="py-2 font-poppins text-[13px] text-white">
                   <li className="flex px-4 py-2 hover:bg-red-600 cursor-pointer">
+                    <a href="/manage_account">
                   < FaRegUser className="mt-[0.1rem] text-[16px] mr-[0.5rem]"/>  Manage My Account
+                  </a>
                   </li>
                   <li className="flex px-4 py-2 hover:bg-red-600 cursor-pointer">
                    <PiShoppingBagOpenDuotone className="mt-[0.1rem] text-[16px] mr-[0.5rem]"/> My Orders

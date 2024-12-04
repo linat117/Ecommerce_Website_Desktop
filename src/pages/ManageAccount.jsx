@@ -4,8 +4,25 @@ import { IoIosSearch } from "react-icons/io";
 import { CiHeart } from "react-icons/ci";
 import { BsCart2 } from "react-icons/bs";
 import { FaUserCircle } from "react-icons/fa";
+import { useState } from "react";
+import Sidebar from "../components/SideBar.jsx";
+import EditProfileForm from "./EditProfileForm.jsx";
+const ManageAccount = () => {
+    const [selectedSection, setSelectedSection] = useState('profile');
 
-const Account = () => {
+    const renderSection = () => {
+        switch (selectedSection) {
+            case 'profile':
+                return <EditProfileForm />;
+            case 'address':
+                return <AddressBook />;
+            case 'payments':
+                return <MyPayments />;
+            // Add other cases for settings, orders, etc.
+            default:
+                return <EditProfileForm />;
+        }
+    };
     return ( 
         <>
         <div>
@@ -32,10 +49,21 @@ const Account = () => {
 </div>
 </div>
     </div> 
+    <div className="ml-[10rem] mt-[2rem]">
+<div className="flex">
+   <p> Home</p>  &nbsp;&nbsp;&nbsp;<p> /</p> &nbsp;&nbsp;&nbsp;<p className="font-semibold font-poppins mt-[0.1rem]">My Account</p> 
+</div>
+    <div className="flex mt-[4rem]">
+            <Sidebar setSelectedSection={setSelectedSection} />
+            <div className="w-3/4 p-8 bg-white">
+                 {renderSection()}
+            </div>
+        </div>
+        </div>
     <Footer/>
         </div>
         </>
      );
 }
  
-export default Account;
+export default ManageAccount;
