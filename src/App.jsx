@@ -6,6 +6,13 @@ import SignUp from './pages/SignUp'
 import Products from './pages/Products'
 import About from './pages/About'
 import { Route, Routes } from 'react-router-dom'
+import Contact from './pages/Contact'
+import Account from './pages/Account'
+import NotFound from './pages/NotFound'
+import ProductDetails from './pages/ProductDetails'
+import Cart from './pages/Cart'
+import WishList from './pages/Wishlist'
+import Checkout from './pages/Checkout'
 function App() {
   
 
@@ -18,7 +25,15 @@ function App() {
     <Route path="/signup" element={<SignUp/>}/>
     <Route path="/home" element={<Home/>}/>
     <Route path='/about' element={<About/>}/>
+    <Route path='/contact' element={<Contact/>}/>
     <Route path="/products" element={<Products/>}/>
+    <Route path="/account" element={<Account/>}/>
+    <Route path="/cart" element={<Cart/>}/>
+    <Route path="/checkout" element={<Checkout/>}/>
+    <Route path="/wishlist" element={<WishList/>}/>
+    <Route path="/product_details" element={<ProductDetails/>}/>
+    <Route path="/notfound" element={<NotFound/>}/>
+   
     </Routes>
     
   </>

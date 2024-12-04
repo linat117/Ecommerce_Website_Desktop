@@ -27,7 +27,7 @@ const About = () => {
 <div className="ml-[12rem]">
     <ul className="flex space-x-10 font-poppins">
         <li><a href="/home">Home</a></li>
-        <li>Contact</li>
+        <li><a href="/contact">Contact</a></li>
         <li><a href="/about">About</a></li>
         <li><a href="/signup">Sign up</a></li>
     </ul>
