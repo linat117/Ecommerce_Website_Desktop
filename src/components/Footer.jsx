@@ -2,7 +2,7 @@ import { VscSend } from "react-icons/vsc";
 const Footer = () => {
     return ( 
         <>
-        <div className="absolute bg-black w-screen h-84 text-[#FAFAFA] font-poppins   p-16 pl-36">
+        <div className="absolute bg-black w-screen h-84 text-[#FAFAFA] font-poppins overflow-x-hidden   p-16 pl-36">
 <div className="flex space-x-20">
 <div className=" w-[180px]">
     <ul className="space-y-3">

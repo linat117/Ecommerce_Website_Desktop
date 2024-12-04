@@ -16,8 +16,8 @@ const Products = () => {
         <Header/>
         <Navbar/>
          <div className="p-4 ml-[9rem] mr-[9rem]">
-            <h1 className="text-2xl font-bold mb-4 font-poppins">All Products</h1>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+             <h1 className="text-2xl font-bold mb-4 font-poppins">All Products</h1>
+            <div className="grid grid-cols-3 gap-4">
                 {products.map(product => (
                     <div key={product.id} className="border p-4 rounded shadow">
                         <h2 className="text-lg font-bold">{product.title}</h2>
