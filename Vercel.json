@@ -2,6 +2,8 @@
   "REWRITES": [
     { 
       "SOURCE": "/(.*)",
-       "DESTINATION": "/" }
+       "DESTINATION": "/" },
+       { "source": "/about",
+        "destination": "/index.html" }
   ]
 }
