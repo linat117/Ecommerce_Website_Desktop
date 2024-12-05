@@ -4,6 +4,6 @@
       "SOURCE": "/(.*)",
        "DESTINATION": "/" },
        { "source": "/about",
-        "destination": "/index.html" }
+        "destination": "/about" }
   ]
 }
