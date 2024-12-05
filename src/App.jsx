@@ -11,7 +11,7 @@ import ManageAccount from './pages/ManageAccount'
 import NotFound from './pages/NotFound'
 import ProductDetails from './pages/ProductDetails'
 import Cart from './pages/Cart'
-import WishList from './pages/Wishlist'
+i
 import Checkout from './pages/Checkout'
 import EditProfileForm from './pages/EditProfileForm'
 function App() {
@@ -33,7 +33,6 @@ function App() {
     <Route path="/EditProfileForm" element={<EditProfileForm/>}/>
     
     <Route path="/checkout" element={<Checkout/>}/>
-    <Route path="/wishlist" element={<WishList/>}/>
     <Route path="/product_details" element={<ProductDetails/>}/>
     <Route path="/notfound" element={<NotFound/>}/>
    
