@@ -1,9 +1,7 @@
 {
   "REWRITES": [
     { 
-      "SOURCE": "/(.*)",
-       "DESTINATION": "/" },
-       { "source": "/about",
-        "destination": "/about" }
+      "SOURCE": "/(.*),/about,/home, /signup",
+       "DESTINATION": "/" }
   ]
 }
