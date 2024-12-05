@@ -9,10 +9,6 @@ import { Route, Routes } from 'react-router-dom'
 import Contact from './pages/Contact'
 import ManageAccount from './pages/ManageAccount'
 import NotFound from './pages/NotFound'
-import ProductDetails from './pages/ProductDetails'
-import Cart from './pages/Cart'
-i
-import Checkout from './pages/Checkout'
 import EditProfileForm from './pages/EditProfileForm'
 function App() {
   
@@ -29,11 +25,8 @@ function App() {
     <Route path='/contact' element={<Contact/>}/>
     <Route path="/products" element={<Products/>}/>
     <Route path="/manage_account" element={<ManageAccount/>}/>
-    <Route path="/cart" element={<Cart/>}/>
     <Route path="/EditProfileForm" element={<EditProfileForm/>}/>
     
-    <Route path="/checkout" element={<Checkout/>}/>
-    <Route path="/product_details" element={<ProductDetails/>}/>
     <Route path="/notfound" element={<NotFound/>}/>
    
     </Routes>
