@@ -71,8 +71,8 @@ const EditProfileForm = () => {
                 <div>
                     <p>Last  Name</p>
                 <input
-                    type="password"
-                    name="password"
+                    type="text"
+                    name="Lastname"
                     value={formData.password}
                     onChange={handleChange}
                     placeholder="Password"
@@ -92,25 +92,25 @@ const EditProfileForm = () => {
                 <div className='space-y-3'>
                     <p>Password Changes</p>
                 <input
-                    type="text"
-                    name="name.lastname"
-                    value={formData.name.lastname}
+                    type="password"
+                    name="password"
+                    value={formData.password}
                     onChange={handleChange}
                     placeholder="Current Password"
                     className="w-[54rem] px-4 py-2 mt-[0.5rem] bg-gray-100  rounded-sm"
                 />
                 <input
-                    type="text"
-                    name="name.lastname"
-                    value={formData.name.lastname}
+                    type="password"
+                    name="password.newpassword"
+                    value={formData.password.newpassword}
                     onChange={handleChange}
                     placeholder="New Password"
                     className="w-[54rem] px-4 py-2 mt-[0.5rem] bg-gray-100  rounded-sm"
                 />
                  <input
-                    type="text"
-                    name="name.lastname"
-                    value={formData.name.lastname}
+                    type="password"
+                    name="password.confirmpassword"
+                    value={formData.password.confirmpassword}
                     onChange={handleChange}
                     placeholder="Confirm New Password"
                     className="w-[54rem] px-4 py-2 mt-[0.5rem] bg-gray-100  rounded-sm"

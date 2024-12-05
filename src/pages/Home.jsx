@@ -1,4 +1,7 @@
 import { useEffect } from "react";
+import { useContext } from "react";
+import { UserContext } from "../components/UserContext";
+import { useNavigate } from "react-router-dom";
 import { IoIosSearch } from "react-icons/io";
 import { CiHeart } from "react-icons/ci";
 import { BsCart2 } from "react-icons/bs";
@@ -29,6 +32,22 @@ const Home = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   //to make the dropdown closes when you click on the outside of the dropdown 
   const dropdownRef = useRef(null);
+//logout logic
+const { setUser } = useContext(UserContext)
+const navigate = useNavigate();
+const handleLogout = () => {
+  // Clear all local storage or session data
+  localStorage.removeItem("userToken");
+  localStorage.removeItem("userInfo");
+
+  // Optionally, clear the entire localStorage/sessionStorage
+  localStorage.clear(); 
+  sessionStorage.clear();
+// Reset user state in context
+setUser(null);
+  // Redirect to login
+  navigate("/login");
+};
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -168,20 +187,44 @@ const Home = () => {
   };  
  
   //category section on click functionality
-   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [products, setProducts] = useState([]);
+  const [defaultProducts, setDefaultProducts] = useState([]); //to store default products at first
+  //const scrollContainerRef = useRef(null);
 
-  const categories = [
-    { id: 1, icon: <MdPhoneIphone className="w-12 h-12" />, name: "Phones" },
-    { id: 2, icon: <RiComputerLine className="w-12 h-12" />, name: "Computers" },
-    { id: 3, icon: <BsSmartwatch className="w-12 h-12" />, name: "Smartwatches" },
-    { id: 4, icon: <FiCamera className="w-12 h-12" />, name: "Cameras" },
-    { id: 5, icon: <MdOutlineHeadphones className="w-12 h-12" />, name: "Headphones" },
-    { id: 6, icon: <TbDeviceGamepad className="w-12 h-12" />, name: "Gaming" },
-  ];
+  // Fetch categories on component mount
+  useEffect(() => {
+    fetch("https://fakestoreapi.com/products/categories")
+      .then((res) => res.json())
+      .then((data) => setCategories(data))
+      .catch((err) => console.error("Error fetching categories:", err));
+  
+  fetch("https://fakestoreapi.com/products")
+  .then((res) => res.json())
+  .then((data) => setDefaultProducts(data.slice(0, 5))) // Fetch and show 5 products initially
+  .catch((err) => console.error("Error fetching default products:", err));
+}, []);
 
-  const handleClick = (category) => {
-    setSelectedCategory(category);
-  };
+  // Handle category click
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+const handleClick = (categoryName) => {
+  setSelectedCategory(categoryName);
+  setLoading(true); // Start loading
+  setError(null);
+  fetch(`https://fakestoreapi.com/products/category/${categoryName}`)
+    .then((res) => res.json())
+    .then((data) => {
+      setProducts(data);
+      setLoading(false); // Stop loading
+    })
+    .catch((err) => {
+      console.error("Error fetching products:", err);
+      setLoading(false); // Stop loading on error
+    });
+};
+
   return ( 
         <div className="overflow-x-hidden">
             <Header/>
@@ -222,7 +265,9 @@ const Home = () => {
                   <li className=" flex px-4 py-2 hover:bg-red-600 cursor-pointer">
                    <IoIosStarOutline className="mt-[0.1rem] text-[16px] mr-[0.5rem]"/> My Reviews
                   </li>
-                  <li className=" flex px-4 py-2 hover:bg-red-600 cursor-pointer">
+                  <li
+                  onClick={handleLogout}
+                   className=" flex px-4 py-2 hover:bg-red-600 cursor-pointer">
                    <SlLogout className="mt-[0.1rem] text-[16px] mr-[0.5rem]"/> Logout
                   </li>
                 </ul>
@@ -302,206 +347,39 @@ const Home = () => {
       
 
       {/* Scrollable Image box for todays option */}
-      <div
-  ref={scrollContainerRef}
-  className="flex overflow-x-auto gap-3 ml-[9rem] mt-[2rem] scrollbar-hidden"
->
-  <div className="w-90 h-[90px] rounded-12 flex-shrink-0">
-    <div className="w-[20rem] bg-gray-100 group rounded-[10px] h-80">
-    <div className="flex">
-<div className="bg-red-600 w-14 h-7 rounded-md ml-[0.7rem] mt-[0.7rem] text-white/[70%] text-[12px] p-1 pl-3">-40%</div>
-<div className="ml-[13rem] mt-[0.6rem] space-y-2">
-<div className="bg-white w-8 h-8 pt-[6.5px] pl-[6px] rounded-full"><IoIosHeartEmpty className="w-5 h-5   "/></div>
-<div className="bg-white w-8 h-8 pt-[6.5px] pl-[6px] rounded-full"><IoEyeOutline className="w-5 h-5   "/></div>
-</div>
-      </div>
-    <img
-      src=""
-      alt="Placeholder 1"
-      className=" pt-[2.6rem] pl-[3.8rem] object-cover rounded"
-    />
-     <button
-      className="w-[20rem] rounded-b  ml-[10rem] mt-[8.4rem] transform -translate-x-1/2 bg-black text-white text-sm py-2 px-4 opacity-0 group-hover:opacity-100 transition-opacity"
-    >
-      Add to Cart
-    </button>
+      <div className="flex overflow-x-auto gap-3 ml-[9rem] mt-[2rem] scrollbar-hidden">
+      {defaultProducts.map((product) => (
+        <div key={product.id} className="w-90 h-[340px] rounded-12 flex-shrink-0">
+          <div className="w-[20rem] shadow-lg group rounded-[10px] h-80">
+            <div className="flex">
+              <div className="bg-red-600 w-14 h-7 rounded-md ml-[0.7rem] mt-[0.7rem] text-white/[70%] text-[12px] p-1 pl-3">
+                -40%
+              </div>
+              <div className="ml-[13rem] mt-[0.6rem] space-y-2">
+                <div className="bg-gray-100 w-8 h-8 pt-[6.5px] pl-[6px] rounded-full">
+                  <IoIosHeartEmpty className="w-5 h-5" />
+                </div>
+                <div className="bg-gray-100 w-8 h-8 pt-[6.5px] pl-[6px] rounded-full">
+                  <IoEyeOutline className="w-5 h-5" />
+                </div>
+              </div>
+            </div>
+            <div className="">
+            <img
+              src={product.image} // Assuming product has 'imageUrl'
+              alt={product.name} // Assuming product has 'name'
+              className="p- w-[120px] h-[176px] ml-[6.5rem] py-[0.3rem] object-cover rounded"
+            />
+            </div>
+            <button
+              className="w-[20rem] rounded-b ml-[10rem] mt-[1.7rem] transform -translate-x-1/2 bg-black text-white text-sm py-2 px-4 opacity-0 group-hover:opacity-100 transition-opacity"
+            >
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      ))}
     </div>
-  </div>
-
-  <div className="w-65 h-80 flex-shrink-0">
-  <div className="w-[20rem] group bg-gray-100 rounded-[10px] h-80">
-  <div className="flex">
-<div className="bg-red-600 w-14 h-7 rounded-md ml-[0.7rem] mt-[0.7rem] text-white/[70%] text-[12px] p-1 pl-3">-40%</div>
-<div className="ml-[13rem] mt-[0.6rem] space-y-2">
-<div className="bg-white w-8 h-8 pt-[6.5px] pl-[6px] rounded-full"><IoIosHeartEmpty className="w-5 h-5   "/></div>
-<div className="bg-white w-8 h-8 pt-[6.5px] pl-[6px] rounded-full"><IoEyeOutline className="w-5 h-5   "/></div>
-</div>
-      </div>
-      <img
-        src=""
-        alt="Placeholder 1"
-        className="pt-[2.6rem] pl-[3.8rem] object-cover rounded"
-      />
-       <button
-      className="w-[20rem] rounded-b  ml-[10rem] mt-[8.4rem] transform -translate-x-1/2 bg-black text-white text-sm py-2 px-4 opacity-0 group-hover:opacity-100 transition-opacity"
-    >
-      Add to Cart
-    </button>
-      </div>
-  </div>
-
-  <div className="w-65 h-80 flex-shrink-0">
-  <div className="w-[20rem] group bg-gray-100 rounded-[10px] h-80">
-  <div className="flex">
-<div className="bg-red-600 w-14 h-7 rounded-md ml-[0.7rem] mt-[0.7rem] text-white/[70%] text-[12px] p-1 pl-3">-40%</div>
-<div className="ml-[13rem] mt-[0.6rem] space-y-2">
-<div className="bg-white w-8 h-8 pt-[6.5px] pl-[6px] rounded-full"><IoIosHeartEmpty className="w-5 h-5   "/></div>
-<div className="bg-white w-8 h-8 pt-[6.5px] pl-[6px] rounded-full"><IoEyeOutline className="w-5 h-5   "/></div>
-</div>
-      </div>
-      <img
-        src=""
-        alt="Placeholder 1"
-        className="pt-[2.6rem] pl-[3.8rem] object-cover rounded"
-      />
-      <button
-      className="w-[20rem] rounded-b  ml-[10rem] mt-[8.4rem] transform -translate-x-1/2 bg-black text-white text-sm py-2 px-4 opacity-0 group-hover:opacity-100 transition-opacity"
-    >
-      Add to Cart
-    </button>
-      </div>
-  </div>
-
-  <div className="w-65 h-80 flex-shrink-0">
-  <div className="w-[20rem] group bg-gray-100 rounded-[10px] h-80">
-      <div className="flex">
-<div className="bg-red-600 w-14 h-7 rounded-md ml-[0.7rem] mt-[0.7rem] text-white/[70%] text-[12px] p-1 pl-3">-40%</div>
-<div className="ml-[13rem] mt-[0.6rem] space-y-2">
-<div className="bg-white w-8 h-8 pt-[6.5px] pl-[6px] rounded-full"><IoIosHeartEmpty className="w-5 h-5   "/></div>
-<div className="bg-white w-8 h-8 pt-[6.5px] pl-[6px] rounded-full"><IoEyeOutline className="w-5 h-5   "/></div>
-</div>
-      </div>
-      <img
-        src=""
-        alt="Placeholder 1"
-        className="pt-[2.6rem] pl-[3.8rem] object-cover rounded"
-      />
-       <button
-      className="w-[20rem] rounded-b  ml-[10rem] mt-[8.4rem] transform -translate-x-1/2 bg-black text-white text-sm py-2 px-4 opacity-0 group-hover:opacity-100 transition-opacity"
-    >
-      Add to Cart
-    </button>
-      </div>
-      hello
-  </div>
-  <div className="w-65 h-80 flex-shrink-0">
-  <div className="w-[20rem] group bg-gray-100 rounded-[10px] h-80">
-  <div className="flex">
-<div className="bg-red-600 w-14 h-7 rounded-md ml-[0.7rem] mt-[0.7rem] text-white/[70%] text-[12px] p-1 pl-3">-40%</div>
-<div className="ml-[13rem] mt-[0.6rem] space-y-2">
-<div className="bg-white w-8 h-8 pt-[6.5px] pl-[6px] rounded-full"><IoIosHeartEmpty className="w-5 h-5   "/></div>
-<div className="bg-white w-8 h-8 pt-[6.5px] pl-[6px] rounded-full"><IoEyeOutline className="w-5 h-5   "/></div>
-</div>
-      </div>
-      <img
-        src=""
-        alt="Placeholder 1"
-        className="pt-[2.6rem] pl-[3.8rem] object-cover rounded"
-      />
-       <button
-      className="w-[20rem] rounded-b  ml-[10rem] mt-[8.4rem] transform -translate-x-1/2 bg-black text-white text-sm py-2 px-4 opacity-0 group-hover:opacity-100 transition-opacity"
-    >
-      Add to Cart
-    </button>
-      </div>
-  </div>
-  <div className="w-65 h-80 flex-shrink-0">
-  <div className="w-[20rem] group bg-gray-100 rounded-[10px] h-80">
-  <div className="flex">
-<div className="bg-red-600 w-14 h-7 rounded-md ml-[0.7rem] mt-[0.7rem] text-white/[70%] text-[12px] p-1 pl-3">-40%</div>
-<div className="ml-[13rem] mt-[0.6rem] space-y-2">
-<div className="bg-white w-8 h-8 pt-[6.5px] pl-[6px] rounded-full"><IoIosHeartEmpty className="w-5 h-5   "/></div>
-<div className="bg-white w-8 h-8 pt-[6.5px] pl-[6px] rounded-full"><IoEyeOutline className="w-5 h-5   "/></div>
-</div>
-      </div>
-      <img
-        src=""
-        alt="Placeholder 1"
-        className="pt-[2.6rem] pl-[3.8rem] object-cover rounded"
-      />
-       <button
-      className="w-[20rem] rounded-b  ml-[10rem] mt-[8.4rem] transform -translate-x-1/2 bg-black text-white text-sm py-2 px-4 opacity-0 group-hover:opacity-100 transition-opacity"
-    >
-      Add to Cart
-    </button>
-      </div>
-  </div>
-  <div className="w-65 h-80 flex-shrink-0">
-  <div className="w-[20rem] group bg-gray-100 rounded-[10px] h-80">
-  <div className="flex">
-<div className="bg-red-600 w-14 h-7 rounded-md ml-[0.7rem] mt-[0.7rem] text-white/[70%] text-[12px] p-1 pl-3">-40%</div>
-<div className="ml-[13rem] mt-[0.6rem] space-y-2">
-<div className="bg-white w-8 h-8 pt-[6.5px] pl-[6px] rounded-full"><IoIosHeartEmpty className="w-5 h-5   "/></div>
-<div className="bg-white w-8 h-8 pt-[6.5px] pl-[6px] rounded-full"><IoEyeOutline className="w-5 h-5   "/></div>
-</div>
-      </div>
-      <img
-        src=""
-        alt="Placeholder 1"
-        className="pt-[2.6rem] pl-[3.8rem] object-cover rounded"
-      />
-       <button
-      className="w-[20rem] rounded-b  ml-[10rem] mt-[8.4rem] transform -translate-x-1/2 bg-black text-white text-sm py-2 px-4 opacity-0 group-hover:opacity-100 transition-opacity"
-    >
-      Add to Cart
-    </button>
-      </div>
-  </div>
-  <div className="w-65 h-80 flex-shrink-0">
-  <div className="w-[20rem] group bg-gray-100 rounded-[10px] h-80">
-  <div className="flex">
-<div className="bg-red-600 w-14 h-7 rounded-md ml-[0.7rem] mt-[0.7rem] text-white/[70%] text-[12px] p-1 pl-3">-40%</div>
-<div className="ml-[13rem] mt-[0.6rem] space-y-2">
-<div className="bg-white w-8 h-8 pt-[6.5px] pl-[6px] rounded-full"><IoIosHeartEmpty className="w-5 h-5   "/></div>
-<div className="bg-white w-8 h-8 pt-[6.5px] pl-[6px] rounded-full"><IoEyeOutline className="w-5 h-5   "/></div>
-</div>
-      </div>
-      <img
-        src=""
-        alt="Placeholder 1"
-        className="pt-[2.6rem] pl-[3.8rem] object-cover rounded"
-      />
-       <button
-      className="w-[20rem] rounded-b  ml-[10rem] mt-[8.4rem] transform -translate-x-1/2 bg-black text-white text-sm py-2 px-4 opacity-0 group-hover:opacity-100 transition-opacity"
-    >
-      Add to Cart
-    </button>
-      </div>
-  </div>
-  <div className="w-65 h-80 flex-shrink-0">
-  <div className="w-[20rem] group bg-gray-100 rounded-[10px]  h-80">
-  <div className="flex">
-<div className="bg-red-600 w-14 h-7 rounded-md ml-[0.7rem] mt-[0.7rem] text-white/[70%] text-[12px] p-1 pl-3">-40%</div>
-<div className="ml-[13rem] mt-[0.6rem] space-y-2">
-<div className="bg-white w-8 h-8 pt-[6.5px] pl-[6px] rounded-full"><IoIosHeartEmpty className="w-5 h-5   "/></div>
-<div className="bg-white w-8 h-8 pt-[6.5px] pl-[6px] rounded-full"><IoEyeOutline className="w-5 h-5   "/></div>
-</div>
-      </div>
-      <img
-        src=""
-        alt="Placeholder 1"
-        className="pt-[2.6rem] pl-[3.8rem] object-cover rounded"
-      />
-       <button
-      className="w-[20rem] rounded-b  ml-[10rem] mt-[8.4rem] transform -translate-x-1/2 bg-black text-white text-sm py-2 px-4 opacity-0 group-hover:opacity-100 transition-opacity"
-    >
-      Add to Cart
-    </button>
-      </div>
-  </div>
-
-  
-</div>
 
     </div>
       <div className="ml-[46rem] mt-[2rem]"><Link to="/products"><button  className="bg-red-600 p-2 text-white px-6 rounded">View All Product</button></Link></div>
@@ -526,49 +404,75 @@ const Home = () => {
       /></div>
         </div>
       </div>
-  <div
-   ref={scrollContainerRef}
-  className="flex overflow-x-auto gap-x-12 ml-[9rem] mt-[2rem] ">
-{categories.map((category) => (
-  <div
-    key={category.id}
-    onClick={() => handleClick(category)}
-    className={`w-44 p-7 border rounded-[3px] flex-shrink-0 h-44 cursor-pointer ${
-      selectedCategory?.id === category.id
-        ? "bg-red-600 text-white"
-        : "bg-white border-gray-400"
-    }`}
-  >
-    <div className="ml-[2.4rem] mb-[1rem]">{category.icon}</div>
-    <div className="ml-[1.6rem]">{category.name}</div>
-  </div>
-))}
-</div>
+      <div className="category-section">
+      {/* Categories */}
+      <div
+        ref={scrollContainerRef}
+        className="flex overflow-x-auto gap-x-16 ml-[9rem] mt-[2rem]"
+      >
+        {categories.map((category) => (
+          <div
+            key={category}
+            onClick={() => handleClick(category)}
+            aria-pressed={selectedCategory === category}
+            className={`w-64 p-7 px-[48px] py-16 border rounded-[3px] flex-shrink-0 h-44 cursor-pointer ${
+              selectedCategory === category
+                ? "bg-red-600 text-white text-2xl transition-all ease-in-out duration-100"
+                : "bg-white border-gray-400 text-2xl"
+            }`}
+          >
+            <div className="ml-[1.6rem]">{category}</div>
+          </div>
+        ))}
+      </div>
 <div className="mt-[4rem]">
         <div className="flex">
           <div className="bg-red-600 w-6 h-12 ml-[10rem] rounded-md"></div>
           <p className="text-red-800 font-poppins text-[12px] font-semibold mt-[0.9rem] ml-[1rem]">
             Today's
           </p>
+          
         </div>
-        <div className="ml-[10rem] mt-[1rem] flex pt-2">
-          <div className="text-[22px] font-poppins font-semibold">
-            {selectedCategory
-              ? `${selectedCategory.name} Flash Sales`
-              : "Select a Category"}
-          </div>
+        {/* Products */}
+        <div className="products mt-8 ml-[9rem]">
+        <div className="text-[22px] font-poppins font-semibold">
+    {selectedCategory ? selectedCategory : "All Products"}
+  </div>
+  {loading ? (
+    <p className="text-gray-500">Loading products...</p>
+  ) : products.length > 0 ? (
+    <div className="grid grid-cols-4 gap-6 mr-[10rem] ">
+      {products.map((product) => (
+        <div
+          key={product.id}
+          className="border rounded p-4 shadow-md hover:shadow-lg hover:bg-red-100"
+        >
+          <img
+            src={product.image}
+            alt={product.title}
+            className="h-32 w-full object-contain mb-2"
+          />
+          <h2 className="text-lg font-semibold">{product.title}</h2>
+          <p className="text-sm text-gray-600">{product.price} USD</p>
         </div>
+      ))}
+    </div>
+  ) : (
+    // Display default "App Products" when no category is selected
+    <div className="grid grid-cols-4 gap-6">
+    {defaultProducts.map((product) => (
+      <div key={product.id} className="border rounded p-4 shadow-md hover:shadow-lg">
+        <img src={product.image} alt={product.title} className="h-32 w-full object-contain mb-2" />
+        <h2 className="text-lg font-semibold">{product.title}</h2>
+        <p className="text-sm text-gray-600">{product.price} USD</p>
+      </div>
+    ))}
+  </div>
+    
+  )}
+</div>
 
-        {/* Placeholder for category-specific items */}
-        <div className="ml-[9rem] mt-[2rem]">
-          {selectedCategory ? (
-            <div>
-              Showing items for <strong>{selectedCategory.name}</strong>
-            </div>
-          ) : (
-            <div>Please select a category to see items.</div>
-          )}
-        </div>
+    </div>
       </div>
         </div>
      );
