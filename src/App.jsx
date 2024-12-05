@@ -5,7 +5,7 @@ import Login from './pages/Login'
 import SignUp from './pages/SignUp'
 import Products from './pages/Products'
 import About from './pages/About'
-import {BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import Contact from './pages/Contact'
 import ManageAccount from './pages/ManageAccount'
 import NotFound from './pages/NotFound'
@@ -15,7 +15,7 @@ function App() {
 
   return (
   <>
-  <Router>
+ 
   <Routes>
     <Route path="/" element={<Login/>}/>
     <Route path="/login" element={<Login/>}/>
@@ -30,7 +30,7 @@ function App() {
     <Route path="/notfound" element={<NotFound/>}/>
    
     </Routes>
-    </Router>
+    
   </>
   )
 }
