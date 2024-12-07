@@ -1,16 +1,19 @@
 import { useState, useEffect } from "react";
 import Header from "../components/Header";
 import Navbar from "../components/Navbar";
+import { useNavigate } from "react-router-dom";
 const Products = () => {
     const [products, setProducts] = useState([]);
-
+    const navigate = useNavigate();
     useEffect(() => {
         fetch('https://fakestoreapi.com/products')
             .then(res => res.json())
             .then(json => setProducts(json))
             .catch(err => console.error("Error fetching products:", err));
     }, []); // Fetches data when the component is mounted.
-
+    const handleProductClick = (productId) => {
+        navigate(`/products/${productId}`); // Navigate to the product detail page
+    };
     return ( 
         <>
         <Header/>
@@ -21,7 +24,10 @@ const Products = () => {
                 {products.map(product => (
                     <div key={product.id} className="border p-4 rounded shadow-lg hover:bg-red-100">
                         <h2 className="text-lg font-bold">{product.title}</h2>
-                        <img src={product.image} alt={product.title} className="w-32 h-32 mx-auto" />
+                        <img src={product.image} 
+                        alt={product.title} 
+                        className="w-32 h-32 mx-auto"
+                        onClick={() => handleProductClick(product.id)} />
                         <p className="text-sm">{product.description}</p>
                         <p className="text-green-500 font-bold">${product.price}</p>
                     </div>

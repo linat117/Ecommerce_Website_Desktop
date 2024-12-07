@@ -27,6 +27,11 @@ import { PiShoppingBagOpenDuotone } from "react-icons/pi";
 import { MdOutlineCancel } from "react-icons/md";
 import { IoIosStarOutline } from "react-icons/io";
 import { SlLogout } from "react-icons/sl";
+
+import { RiCustomerServiceLine } from "react-icons/ri";
+import { AiOutlineSafetyCertificate } from "react-icons/ai";
+import { TbTruckDelivery } from "react-icons/tb";
+import Footer from "../components/Footer";
 const Home = () => {
   //dropdown 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -357,7 +362,9 @@ const handleClick = (categoryName) => {
               </div>
               <div className="ml-[13rem] mt-[0.6rem] space-y-2">
                 <div className="bg-gray-100 w-8 h-8 pt-[6.5px] pl-[6px] rounded-full">
-                  <IoIosHeartEmpty className="w-5 h-5" />
+                  <IoIosHeartEmpty 
+                  className="w-5 h-5" 
+                  />
                 </div>
                 <div className="bg-gray-100 w-8 h-8 pt-[6.5px] pl-[6px] rounded-full">
                   <IoEyeOutline className="w-5 h-5" />
@@ -371,7 +378,7 @@ const handleClick = (categoryName) => {
               className="p- w-[120px] h-[176px] ml-[6.5rem] py-[0.3rem] object-cover rounded"
             />
             </div>
-            <button
+           <button
               className="w-[20rem] rounded-b ml-[10rem] mt-[1.7rem] transform -translate-x-1/2 bg-black text-white text-sm py-2 px-4 opacity-0 group-hover:opacity-100 transition-opacity"
             >
               Add to Cart
@@ -459,7 +466,7 @@ const handleClick = (categoryName) => {
     </div>
   ) : (
     // Display default "App Products" when no category is selected
-    <div className="grid grid-cols-4 gap-6">
+    <div className="grid grid-cols-4 gap-6 mr-[10rem]">
     {defaultProducts.map((product) => (
       <div key={product.id} className="border rounded p-4 shadow-md hover:shadow-lg">
         <img src={product.image} alt={product.title} className="h-32 w-full object-contain mb-2" />
@@ -473,7 +480,152 @@ const handleClick = (categoryName) => {
 </div>
 
     </div>
+    <div className="bg-black w-[76rem] h-[24rem] ml-[9rem] mt-[3rem]">
+<div className="flex">
+  <div className="p-14 space-y-5 pl-20">
+    <div> <p className="text-[#00FF66] font-poppins">Categories</p></div>
+    <div><h1 className="text-white text-[32px] font-poppins w-[18rem]">Enhance Your Music Experience</h1></div>
+    <div className="flex space-x-3">
+      <div className="bg-white  w-12 h-12 rounded-full">
+        <p className="text-[12px] font-bold pl-4 pt-1 ">23</p>
+        <p className="text-[9px] font-semibold font-poppins -pt-3 pl-1">Hours</p>
       </div>
+      <div className="bg-white w-12 h-12 rounded-full">
+      <p className="text-[12px] font-bold pl-4 pt-1 ">05</p>
+      <p className="text-[8px] font-semibold font-poppins -pt-3 pl-1">Days</p>
+      </div>
+      <div className="bg-white w-12 h-12 rounded-full">
+      <p className="text-[12px] font-bold pl-4 pt-1 ">59</p>
+      <p className="text-[8px] font-semibold font-poppins -pt-3 pl-1">Minute</p>
+      </div>
+      <div className="bg-white w-12 h-12 rounded-full">
+      <p className="text-[12px] font-bold pl-4 pt-1 ">35</p>
+      <p className="text-[8px] font-semibold font-poppins -pt-3 pl-1">Second</p>
+      </div>
+    </div>
+    <div>
+      <button className="bg-[#00FF66] p-2 pl-7 pr-7 rounded font-poppins ">Buy now</button>
+    </div>
+  </div>
+  <div>
+    <img src="Music.png" 
+    className=""
+    />
+  </div>
+</div>
+    </div>
+    <div className="grid grid-cols-4 gap-6 mx-[9rem] mt-[2rem]">
+  {defaultProducts.map((product) => (
+    <div key={product.id} className="w-90 h-[340px] rounded-12">
+      <div className="w-[20rem] shadow-lg group rounded-[10px] h-80">
+        <div className="flex">
+          <div className="bg-red-600 w-14 h-7 rounded-md ml-[0.7rem] mt-[0.7rem] text-white/[70%] text-[12px] p-1 pl-3">
+            -40%
+          </div>
+          <div className="ml-auto mt-[0.6rem] space-y-2">
+            <div className="bg-gray-100 w-8 h-8 pt-[6.5px] pl-[6px] rounded-full">
+              <IoIosHeartEmpty className="w-5 h-5" />
+            </div>
+            <div className="bg-gray-100 w-8 h-8 pt-[6.5px] pl-[6px] rounded-full">
+              <IoEyeOutline className="w-5 h-5" />
+            </div>
+          </div>
+        </div>
+        <div>
+          <img
+            src={product.image}
+            alt={product.name}
+            className="w-[120px] h-[176px] ml-[6.5rem] py-[0.3rem] object-cover rounded"
+          />
+        </div>
+        
+      </div>
+    </div>
+  ))}
+</div>
+
+    <div>
+<div className="flex mt-[2rem] space-x-3">
+          <div className="bg-red-600 w-6 h-12 ml-[9rem] rounded-md"></div>
+          <p className="text-red-800 font-poppins text-[12px] font-semibold mt-[0.9rem] ml-[1rem]">
+            Featured
+          </p>
+          
+        </div>
+        <div className="text-[22px] font-poppins font-semibold ml-[9rem] mt-[1rem]">New Arrival</div>
+      <div className="flex ml-[9rem] mt-[2rem]">
+        <div className="relative bg-black w-[580px] h-[570px]">
+<img src="Playstation.png" className="mt-[-2rem]"/>
+<p className="absolute inset-0 text-white mt-[25rem] font-poppins text-[28px] ml-[2rem]">PlayStation 5</p>
+    <p className="absolute inset-0 text-white w-[250px] font-poppins mt-[28rem] ml-[2rem]">Black and White version of the PS5 coming out on sale</p>
+    <p className="absolute inset-0 text-white w-[250px] font-poppins mt-[32rem] ml-[2rem]"><a href="" className="underline">Shop Now</a></p>
+       
+        </div>
+        <div>
+<div className="flex bg-black w-[580px] h-[250px] ml-[3.2rem]">
+<div className="w-[280px] ml-[1rem] space-y-2">
+<p className="text-white font-poppins text-[26px] font-semibold mt-[6rem] ">Women's Collection</p>
+<p className="text-white font-poppins">Featured woman collections that give you another vibe.</p>
+<p className="font-poppins text-white"><a href="" className="underline">Shop Now</a></p>
+</div>
+<div>
+  <img src="Woman.png" className= " ml-[1.3rem] w-[250px] h-[220px] mt-[1.9rem]"/>
+</div>
+</div>
+<div className="flex">
+  <div className=" relative bg-black w-[265px] h-[270px] ml-[3.2rem] mt-[3rem]">
+  <img src="speakers.png" className="mt-[1.2rem] ml-[4rem] w-[180px] h-[250px]"/>
+<p className="absolute inset-0 text-white  font-poppins text-[18px] ml-[2rem] mt-[11.4rem]">Speakers</p>
+<p className="absolute inset-0 text-white  font-poppins text-[16px] ml-[2rem] mt-[13.4rem]">Amazon wireless speakers</p>
+<p className="absolute inset-0 text-white  font-poppins text-[18px] ml-[2rem] mt-[15rem]"><a href="" className="underline">Shop Now</a></p>
+
+  </div>
+  <div className="relative bg-black w-[265px] h-[270px] ml-[3.2rem] mt-[3rem]">
+  <img src="perfume.png" className="mt-[1.2rem] ml-[4rem] w-[180px] h-[200px]"/>
+  <p className="absolute inset-0 text-white  font-poppins text-[18px] ml-[2rem] mt-[11.4rem]">Perfume</p>
+<p className="absolute inset-0 text-white  font-poppins text-[16px] ml-[2rem] mt-[13.4rem]">GUCCI INTENSE OUD EDP</p>
+<p className="absolute inset-0 text-white  font-poppins text-[18px] ml-[2rem] mt-[15rem]"><a href="" className="underline">Shop Now</a></p>
+  </div>
+</div>
+        </div>
+        </div> 
+</div>
+    <div className="flex mt-[5rem] ml-[9rem] space-x-40">
+    <div className="w-72 h-56  rounded bg-white ">
+        <div className="w-20 h-20 rounded-full bg-gray-400  p-2 pl-2 pt-2 ml-[5rem] mt-[2rem]">
+            <div className="w-16 h-16 rounded-full bg-black  p-3">
+            <TbTruckDelivery className="text-[40px]  text-white  "/>
+            </div>
+        </div>
+        <div className="ml-[1rem] mt-[1rem] font-poppins font-semibold text-[16px]"> FREE AND FAST DELIVERY</div>
+        <div className="font-poppins text-[14px] ml-[rem] mt-[">Free delivery for all orders over $140</div>
+    
+    </div>
+    <div className="w-72 h-56  rounded ">
+        <div className="w-20 h-20 rounded-full bg-gray-400  p-2 pl-2 pt-2 ml-[5rem] mt-[2rem]">
+            <div className="w-16 h-16 rounded-full bg-black  p-3">
+            <RiCustomerServiceLine className="text-[40px]  text-white"/>
+            </div>
+        </div>
+        <div className="ml-[1rem] mt-[1rem] font-poppins font-semibold text-[16px]"> 24/7 CUSTOMER SERVICE</div>
+        <div className="font-poppins text-[14px] ml-[rem] mt-[">Friendly 24/7 customer support</div>
+    
+    </div>
+    <div className="w-72 h-56  rounded ">
+        <div className="w-20 h-20 rounded-full bg-gray-400  p-2 pl-2 pt-2 ml-[5rem] mt-[2rem]">
+            <div className="w-16 h-16 rounded-full bg-black   p-3">
+            < AiOutlineSafetyCertificate  className="text-[40px]  text-white"/>
+            </div>
+        </div>
+        <div className="ml-[1rem] mt-[1rem] font-poppins font-semibold text-[16px]"> MONEY BACK GUARANTEE</div>
+        <div className="font-poppins text-[14px] ml-[rem] mt-[">we return money within 30 days</div>
+    
+    </div>
+    
+</div>
+
+      </div>
+      <Footer/>
         </div>
      );
 }

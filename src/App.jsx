@@ -10,6 +10,9 @@ import Contact from './pages/Contact'
 import ManageAccount from './pages/ManageAccount'
 import NotFound from './pages/NotFound'
 import EditProfileForm from './pages/EditProfileForm'
+import WishList from './pages/Wishlist'
+import Cart from './pages/Cart'
+import ProductDetails from './pages/ProductDetails'
 function App() {
   
 
@@ -21,13 +24,16 @@ function App() {
     <Route path="/login" element={<Login/>}/>
     <Route path="/signup" element={<SignUp/>}/>
     <Route path="/home" element={<Home/>}/>
+    <Route path="/cart" element={<Cart/>}/>
     <Route path='/about' element={<About/>}/>
     <Route path='/contact' element={<Contact/>}/>
     <Route path="/products" element={<Products/>}/>
+    <Route path="/wishlist" element={<WishList/>}/>
     <Route path="/manage_account" element={<ManageAccount/>}/>
     <Route path="/EditProfileForm" element={<EditProfileForm/>}/>
-    
     <Route path="/notfound" element={<NotFound/>}/>
+    <Route path="/products/:productId" element={<ProductDetails />} />
+         
    
     </Routes>
     
