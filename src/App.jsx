@@ -11,13 +11,12 @@ import Contact from './pages/Contact'
 import ManageAccount from './pages/ManageAccount'
 import NotFound from './pages/NotFound'
 import EditProfileForm from './pages/EditProfileForm'
-import WishList from './pages/Wishlist'
 import Cart from './pages/Cart'
 import ProductDetails from './pages/ProductDetails'
 import Checkout from './pages/Checkout'
 function App() {
   
-  const [wishlist, setWishlist] = React.useState([]);
+ 
   return (
   <>
  
@@ -30,7 +29,6 @@ function App() {
     <Route path='/about' element={<About/>}/>
     <Route path='/contact' element={<Contact/>}/>
     <Route path="/products" element={<Products/>}/>
-    <Route path="/wishlist" element={<WishList wishlist={wishlist} />}/>
     <Route path="/checkout" element={<Checkout/>}/>
     <Route path="/manage_account" element={<ManageAccount/>}/>
     <Route path="/EditProfileForm" element={<EditProfileForm/>}/>
