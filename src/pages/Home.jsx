@@ -145,32 +145,6 @@ const navigate = useNavigate();
       });
     }
   };  
- //wish list page and notificaons fuctionality
- const [wishlist, setWishlist] = useState([]); // Wishlist state
-  const [wishlistCount, setWishlistCount] = useState(0); // Wishlist count
-
-  const handleWishlistToggle = (product) => {
-    const isInWishlist = wishlist.some((item) => item.id === product.id);
-
-    if (isInWishlist) {
-      // Remove product from wishlist
-      const updatedWishlist = wishlist.filter((item) => item.id !== product.id);
-      setWishlist(updatedWishlist);
-      setWishlistCount(updatedWishlist.length);
-    } else {
-      // Add product to wishlist
-      setWishlist([...wishlist, product]);
-      setWishlistCount(wishlist.length + 1);
-    }
-  };
- 
-
-  const handleAddToWishlist = (product) => {
-    setWishlist((prevWishlist) => [...prevWishlist, product]);
-    console.log("Wishlist clicked for product:", product);
-  };
-  
-  const isInWishlist = wishlist.some((item) => item.id === product.id);
  
   //category section on click functionality
   const [categories, setCategories] = useState([]);
@@ -323,7 +297,7 @@ const handleAddToCart = (product) => {
                 <div className="bg-gray-100 w-8 h-8 pt-[6.5px] pl-[6px] rounded-full">
                   <IoIosHeartEmpty 
                   className="w-5 h-5" 
-                  onClick={() => handleAddToWishlist(product)}
+                 
                   />
                 </div>
                 <div className="bg-gray-100 w-8 h-8 pt-[6.5px] pl-[6px] rounded-full">
@@ -485,13 +459,12 @@ const handleAddToCart = (product) => {
           </div>
           <div className="ml-auto mt-[0.6rem] space-y-2">
             <div
-             onClick={() => handleWishlistToggle(product)}
+             
              className="bg-gray-100 w-8 h-8 pt-[6.5px] pl-[6px] rounded-full">
-              {isInWishlist ? (
-                        <IoIosHeart className="w-5 h-5 text-red-500" />
-                      ) : (
-                        <IoIosHeartEmpty className="w-5 h-5" />
-                      )}
+              
+                        <IoIosHeart className="w-5 h-5 " />
+                     
+                      
             </div>
             <div className="bg-gray-100 w-8 h-8 pt-[6.5px] pl-[6px] rounded-full">
               <IoEyeOutline className="w-5 h-5" />

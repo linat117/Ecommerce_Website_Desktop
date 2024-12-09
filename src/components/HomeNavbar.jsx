@@ -43,10 +43,7 @@ useEffect(() => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []); 
-   //wish list page and notificaons fuctionality
- const [wishlist, setWishlist] = useState([]); // Wishlist state
- const [wishlistCount, setWishlistCount] = useState(0); // Wishlist count
-
+   
     return ( 
         <>
          <div className="w-screen h-20 border p-7 overflow-hidden">
@@ -63,14 +60,10 @@ useEffect(() => {
 <div className="flex ml-[14rem]" ref={dropdownRef}>
     <input type="text" placeholder="what are you looking for?" className="bg-gray-50 h-8 p-2 w-60 rounded-lg text-[12px] font-poppins"/>
     <IoIosSearch className="ml-[-2rem] mt-[0.5rem] mr-[1rem] text-[20px]"/>
-    <Link to="/wishlist">
+    <Link to="">
           <div className="relative">
             
-            {wishlistCount > 0 && (
-              <span className="absolute -top-2 -right-3 bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
-                {wishlistCount}
-              </span>
-            )}
+          
           </div>
         </Link>
 <CiHeart className="text-[26px] mt-[0.3rem] ml-[1rem]"/>
