@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/Ecommerce_Website_Desktop/',
+  base: '/',
   plugins: [react()],
   eslint: {
     ignoreDuringBuilds : true,
