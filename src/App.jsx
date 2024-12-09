@@ -14,6 +14,7 @@ import EditProfileForm from './pages/EditProfileForm'
 import Cart from './pages/Cart'
 import ProductDetails from './pages/ProductDetails'
 import Checkout from './pages/Checkout'
+
 function App() {
   
  
