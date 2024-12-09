@@ -6,9 +6,14 @@ import { BsCart2 } from "react-icons/bs";
 import { FaUserCircle } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import { useState,useEffect } from "react";
+import { TbTruckDelivery } from "react-icons/tb";
+import { LuRefreshCcw } from "react-icons/lu";
+import { Link } from "react-router-dom";
+import HomeNavbar from "../components/HomeNavbar";
 const ProductDetails = () => {
     const { productId } = useParams(); // Retrieve product ID from URL
     const [product, setProduct] = useState(null);
+    const [defaultProducts, setDefaultProducts] = useState([]); //to store default products at first
     const [selectedImage, setSelectedImage] = useState(null); // To handle the selected image
     const [quantity, setQuantity] = useState(1); // To handle the quantity of product
     const [count, setCount] = useState(0);
@@ -45,43 +50,16 @@ const ProductDetails = () => {
     if (!product) {
         return <div>Loading product detail...</div>;
     }
+
+    
+    
+    
     return ( 
         <>
         <div>
            <Header/>
               {/*Product details page Navbar startted*/}
-              <div className="w-screen h-20 border p-7 overflow-hidden">
-<div className="flex  w-[1250px] h-9 ml-[8rem]  mr-[8rem] p-1">
-<div className="text-[18px] font-poppins font-semibold">Exclusive</div>
-<div className="ml-[12rem]">
-    <ul className="flex space-x-10 font-poppins">
-        <li><a href="/home">Home</a></li>
-        <li><a href="/contact">Contact</a></li>
-        <li><a href="/about">About</a></li>
-        <li><a href="/signup">Sign up</a></li>
-    </ul>
-</div>
-<div className="flex ml-[14rem] ">
-    <input type="text" placeholder="what are you looking for?" className="bg-gray-50 h-8 p-2 w-60 rounded-lg text-[12px] font-poppins"/>
-    <IoIosSearch className="ml-[-2rem] mt-[0.5rem] mr-[1rem] text-[20px]"/>
-<CiHeart className="text-[26px] mt-[0.3rem] ml-[1rem]"/>
-<BsCart2 className="text-[23px] mt-[0.3rem] ml-[1rem]"/>
-<FaUserCircle className="text-red-600 w-6 h-6 ml-[1rem] mt-[0.3rem]"/>
-
-</div>
-</div>
-<div className="p-4 ml-[9rem]  mr-[9rem]">
-                <h1 className="text-2xl font-bold mb-4 font-poppins">{product.title}</h1>
-                <div className="flex gap-6">
-                    <img src={product.image} alt={product.title} className="w-64 h-64 object-cover" />
-                    <div>
-                        <p className="text-lg">{product.description}</p>
-                        <p className="text-green-500 font-bold mt-4">Price: ${product.price}</p>
-                        <p className="mt-2">Category: {product.category}</p>
-                    </div>
-                </div>
-            </div>
-    </div> 
+          <HomeNavbar/>
     <div className="mt-[3rem] ml-[9rem] mr-[9rem] mb-[3rem]">
     {/* Product Title */}
     
@@ -112,11 +90,11 @@ const ProductDetails = () => {
 </div>
 <div className="flex mb-[1rem] space-x-4">
     <div>Size:</div>
-    <div className="w-9 h-9 border border-gray-500 rounded-md p-1 pl-2"><p>XS</p></div>
-    <div className="w-9 h-9 border border-gray-500 rounded-md p-1 pl-2"><p>S</p></div>
-    <div className="w-9 h-9 border border-gray-500 rounded-md p-1 pl-2"><p>M</p></div>
-    <div className="w-9 h-9 border border-gray-500 rounded-md p-1 pl-2"><p>L</p></div>
-    <div className="w-9 h-9 border border-gray-500 rounded-md p-1 pl-2"><p>XL</p></div>
+    <div className="w-9 h-9 border border-gray-500 rounded-md p-1 pl-2 hover:bg-red-500 active:bg-red-500 focus:bg-red-500"><p>XS</p></div>
+    <div className="w-9 h-9 border border-gray-500 rounded-md p-1 pl-2 hover:bg-red-500 active:bg-red-500 focus:bg-red-500"><p>S</p></div>
+    <div className="w-9 h-9 border border-gray-500 rounded-md p-1 pl-2 hover:bg-red-500 active:bg-red-500 focus:bg-red-500"><p>M</p></div>
+    <div className="w-9 h-9 border border-gray-500 rounded-md p-1 pl-2 hover:bg-red-500 active:bg-red-500 focus:bg-red-500"><p>L</p></div>
+    <div className="w-9 h-9 border border-gray-500 rounded-md p-1 pl-2 hover:bg-red-500 active:bg-red-500 focus:bg-red-500"><p>XL</p></div>
 </div>
 <div>
     <div className="flex space-x-3">
@@ -141,22 +119,76 @@ const ProductDetails = () => {
          <button 
                 className="bg-red-500 text-white text-lg font-medium py-3 px-8 rounded-lg hover:bg-red-600 transition"
             >
+                <Link to="/checkout">
                 Buy Now
+                </Link>
             </button>
       </div>
-      <div className="border border-gray-600 w-12 h-12 mt-[0.1rem] rounded-md">
+      <div className="border border-gray-600 w-12 h-12 mt-[0.1rem] rounded-md hover:bg-red-500 active:bg-red-500 focus:bg-red-500">
         <CiHeart className="w-9 h-9 mt-[0.4rem] ml-[0.3rem]"/>
       </div>
     </div>
    
            
             </div>
-            <div className="border border-black w-[36rem] h-[12rem]">
-
+            <div className="border border-black w-[36rem] h-[9rem] mt-[1rem]">
+<div className="flex">
+<div><TbTruckDelivery className="w-9 h-9 mt-[1rem] ml-[1rem] mr-[1rem]"/></div>
+<div className="mt-[0.5rem] mb-[1rem]"> 
+    <p>Free Delivery</p>
+    <p className="underline">Enter your postal code for Delivery Availability</p>
+    </div>
+</div>
+<hr/>
+<div className="flex">
+    <div><LuRefreshCcw className="w-9 h-9 mt-[1rem] ml-[1rem] mr-[1rem]"/></div>
+    <div className="mt-[0.5rem]">
+        <p>Return Delivery</p>
+        <p className="flex">Free 30 Days Delivery Returns.<p className="underline">Details</p></p>
+    </div>
+</div>
 </div>
         </div>
     </div>
 </div>
+<div className="flex overflow-x-auto gap-3 ml-[9rem] mt-[2rem] scrollbar-hidden">
+      {defaultProducts.map((product) => (
+        <div key={product.id} className="w-90 h-[340px] rounded-12 flex-shrink-0">
+          <div className="w-[20rem] shadow-lg group rounded-[10px] h-80">
+            <div className="flex">
+              <div className="bg-red-600 w-14 h-7 rounded-md ml-[0.7rem] mt-[0.7rem] text-white/[70%] text-[12px] p-1 pl-3">
+                -40%
+              </div>
+              <div className="ml-[13rem] mt-[0.6rem] space-y-2">
+                <div className="bg-gray-100 w-8 h-8 pt-[6.5px] pl-[6px] rounded-full">
+                  <IoIosHeartEmpty 
+                  className="w-5 h-5" 
+                  onClick={() => handleAddToWishlist(product)}
+                  />
+                </div>
+                <div className="bg-gray-100 w-8 h-8 pt-[6.5px] pl-[6px] rounded-full">
+                  <IoEyeOutline className="w-5 h-5" />
+                </div>
+              </div>
+            </div>
+            <div className="">
+            <img
+              src={product.image} // Assuming product has 'imageUrl'
+              alt={product.name} // Assuming product has 'name'
+              className="p- w-[120px] h-[176px] ml-[6.5rem] py-[0.3rem] object-cover rounded"
+            />
+            </div>
+           <button
+            onClick={handleAddToCart}
+              className="w-[20rem] rounded-b ml-[10rem] mt-[1.7rem] transform -translate-x-1/2 bg-black text-white text-sm py-2 px-4 opacity-0 group-hover:opacity-100 transition-opacity"
+            >
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      ))}
+    </div>
+
 
     <Footer/>
         </div>

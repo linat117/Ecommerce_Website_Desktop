@@ -14,6 +14,7 @@ import { RiCustomerServiceLine } from "react-icons/ri";
 import { AiOutlineSafetyCertificate } from "react-icons/ai";
 import { TbTruckDelivery } from "react-icons/tb";
 import Footer from "../components/Footer";
+import HomeNavbar from "../components/HomeNavbar";
 const About = () => {
 
     return ( 
@@ -21,27 +22,7 @@ const About = () => {
         <div className="overflow-x-hidden">
             <Header/>
             {/*nav bar section for about us page*/}
-            <div className="w-screen h-20 border p-7 overflow-hidden">
-<div className="flex  w-[1250px] h-9 ml-[8rem]  mr-[8rem] p-1">
-<div className="text-[18px] font-poppins font-semibold">Exclusive</div>
-<div className="ml-[12rem]">
-    <ul className="flex space-x-10 font-poppins">
-        <li><a href="/home">Home</a></li>
-        <li><a href="/contact">Contact</a></li>
-        <li><a href="/about">About</a></li>
-        <li><a href="/signup">Sign up</a></li>
-    </ul>
-</div>
-<div className="flex ml-[14rem] ">
-    <input type="text" placeholder="what are you looking for?" className="bg-gray-50 h-8 p-2 w-60 rounded-lg text-[12px] font-poppins"/>
-    <IoIosSearch className="ml-[-2rem] mt-[0.5rem] mr-[1rem] text-[20px]"/>
-<CiHeart className="text-[26px] mt-[0.3rem] ml-[1rem]"/>
-<BsCart2 className="text-[23px] mt-[0.3rem] ml-[1rem]"/>
-<FaUserCircle className="text-red-600 w-6 h-6 ml-[1rem] mt-[0.3rem]"/>
-
-</div>
-</div>
-    </div>
+           <HomeNavbar/>
    
             <div className="ml-[10rem] mt-[2rem]">
 <div className="flex">
@@ -113,7 +94,9 @@ const About = () => {
 {/*teams section*/}
 <div className="mt-[3rem] flex space-x-8">
     <div className=" w-[24rem] h-[34rem] ">
-        <div className="w-[24rem] h-[25rem] bg-gray-200"></div>
+        <div className="w-[24rem] h-[25rem] bg-gray-200">
+            <img src="team one.png" className="w-[23rem] h-[25rem]"/>
+        </div>
         <div className="mt-[1rem]">
             <p className="text-[24px] font-poppins font-semibold">Tom Cruise</p>
             <p>Founder & Chairman</p>
@@ -121,7 +104,10 @@ const About = () => {
         </div>
     </div>
     <div className=" w-[24rem] h-[34rem] ">
-        <div className="w-[24rem] h-[25rem] bg-gray-200"></div>
+        <div className="w-[24rem] h-[25rem] bg-gray-200">
+        <img src="team three.png" className="w-[23rem] h-[25rem]"/>
+        
+        </div>
         <div className="mt-[1rem]">
             <p className="text-[24px] font-poppins font-semibold">Tom Cruise</p>
             <p>Founder & Chairman</p>
@@ -129,7 +115,10 @@ const About = () => {
         </div>
     </div>
     <div className=" w-[24rem] h-[34rem] ">
-        <div className="w-[24rem] h-[25rem] bg-gray-200"></div>
+        <div className="w-[24rem] h-[25rem] bg-gray-200">
+        <img src="team two.png" className="w-[23rem] h-[25rem]"/>
+        
+        </div>
         <div className="mt-[1rem]">
             <p className="text-[24px] font-poppins font-semibold">Tom Cruise</p>
             <p>Founder & Chairman</p>

@@ -5,7 +5,7 @@ import { CiHeart } from "react-icons/ci";
 import { BsCart2 } from "react-icons/bs";
 import { FaUserCircle } from "react-icons/fa";
 
-const WishList = () => {
+const WishList = ({ wishlist }) => {
     return ( 
         <>
         <div>
@@ -32,6 +32,22 @@ const WishList = () => {
 </div>
 </div>
     </div> 
+    <div>
+      <h1 className="text-2xl font-bold mb-4">My Wishlist</h1>
+      <div className="grid grid-cols-2 gap-4">
+        {wishlist.map((product) => (
+          <div key={product.id} className="p-4 shadow-lg rounded-lg">
+            <img
+              src={product.image}
+              alt={product.name}
+              className="w-40 h-40 object-cover rounded-md"
+            />
+            <h2 className="text-lg font-semibold">{product.name}</h2>
+            <p className="text-gray-600">${product.price}</p>
+          </div>
+        ))}
+      </div>
+    </div>
     <Footer/>
         </div>
         </>

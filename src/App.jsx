@@ -1,5 +1,6 @@
 
 import './App.css'
+import React from 'react'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import SignUp from './pages/SignUp'
@@ -13,9 +14,10 @@ import EditProfileForm from './pages/EditProfileForm'
 import WishList from './pages/Wishlist'
 import Cart from './pages/Cart'
 import ProductDetails from './pages/ProductDetails'
+import Checkout from './pages/Checkout'
 function App() {
   
-
+  const [wishlist, setWishlist] = React.useState([]);
   return (
   <>
  
@@ -28,7 +30,8 @@ function App() {
     <Route path='/about' element={<About/>}/>
     <Route path='/contact' element={<Contact/>}/>
     <Route path="/products" element={<Products/>}/>
-    <Route path="/wishlist" element={<WishList/>}/>
+    <Route path="/wishlist" element={<WishList wishlist={wishlist} />}/>
+    <Route path="/checkout" element={<Checkout/>}/>
     <Route path="/manage_account" element={<ManageAccount/>}/>
     <Route path="/EditProfileForm" element={<EditProfileForm/>}/>
     <Route path="/notfound" element={<NotFound/>}/>

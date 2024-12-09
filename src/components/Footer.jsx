@@ -1,4 +1,8 @@
 import { VscSend } from "react-icons/vsc";
+import { FaFacebookF } from "react-icons/fa";
+import { CiTwitter } from "react-icons/ci";
+import { IoLogoInstagram } from "react-icons/io";
+import { RiLinkedinLine } from "react-icons/ri";
 const Footer = () => {
     return ( 
         <>
@@ -10,7 +14,7 @@ const Footer = () => {
         <li>Subscribe</li>
         <li className="text-[12px]">Get 10% off you first order</li>
         <li className="flex">
-            <input className="w-40 h-8  bg-black text-[12px] pl-2" placeholder="Enter your email"/>
+            <input className="w-40 h-8 border bg-black text-[12px] pl-2" placeholder="Enter your email"/>
        <VscSend className="ml-[-2rem] mt-[0.5rem]"/>
         </li>
     </ul>
@@ -44,11 +48,16 @@ const Footer = () => {
     </ul>
 </div>
 <div className=" w-[200px]">
-<ul>
+<ul className="space-y-3">
         <li>Download App</li>
         <li className="text-[12px]">Save $3 with App New User Only</li>
-        <li></li>
-        <li></li>
+        <li><img src="barcode.png"/></li>
+        <li className="flex text-white space-x-3">
+            <FaFacebookF className="text-xl"/>
+            <CiTwitter className="text-xl"/>
+            <IoLogoInstagram className="text-xl"/>
+            <RiLinkedinLine className="text-xl"/>
+        </li>
     </ul>
 </div>
 

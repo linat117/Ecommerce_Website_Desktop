@@ -2,11 +2,6 @@ import { useEffect } from "react";
 import { useContext } from "react";
 import { UserContext } from "../components/UserContext";
 import { useNavigate } from "react-router-dom";
-import { IoIosSearch } from "react-icons/io";
-import { CiHeart } from "react-icons/ci";
-import { BsCart2 } from "react-icons/bs";
-import { FaUserCircle } from "react-icons/fa";
-import { FaCheckCircle, FaTimesCircle } from "react-icons/fa"; // Icons for list items
 import { useState, useRef } from "react";
 import { MdPhoneIphone } from "react-icons/md";
 import { RiComputerLine } from "react-icons/ri";
@@ -22,51 +17,20 @@ import { FaApple } from "react-icons/fa";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import Header from "../components/Header";
 import { Link } from "react-router-dom";
-import { FaRegUser } from "react-icons/fa";
-import { PiShoppingBagOpenDuotone } from "react-icons/pi";
-import { MdOutlineCancel } from "react-icons/md";
-import { IoIosStarOutline } from "react-icons/io";
-import { SlLogout } from "react-icons/sl";
 
 import { RiCustomerServiceLine } from "react-icons/ri";
 import { AiOutlineSafetyCertificate } from "react-icons/ai";
 import { TbTruckDelivery } from "react-icons/tb";
 import Footer from "../components/Footer";
-const Home = () => {
-  //dropdown 
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  //to make the dropdown closes when you click on the outside of the dropdown 
-  const dropdownRef = useRef(null);
+import HomeNavbar from "../components/HomeNavbar";
+const Home = (product) => {
+ 
 //logout logic
 const { setUser } = useContext(UserContext)
 const navigate = useNavigate();
-const handleLogout = () => {
-  // Clear all local storage or session data
-  localStorage.removeItem("userToken");
-  localStorage.removeItem("userInfo");
 
-  // Optionally, clear the entire localStorage/sessionStorage
-  localStorage.clear(); 
-  sessionStorage.clear();
-// Reset user state in context
-setUser(null);
-  // Redirect to login
-  navigate("/login");
-};
 
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsDropdownOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);   
+  
   // Slider content with description and images
   const slides = [
     {
@@ -85,41 +49,31 @@ setUser(null);
         </>
       ),
     
-      image: ( 
-        <>
-       <img src="phoneone.png"/>
-        </>
-      ),
+      image: "iphoneOne.png",
     },
     {
       description: (
         <>
          <div className="flex mt-[0rem] ml-[1rem]">
 <FaApple className="text-white text-[40px] mt-[-0.5rem]"/>
-          <p className="text-white ml-[1rem]">iPhone 14 Series </p>
+          <p className="text-white ml-[1rem]">iPhone 13 New </p>
           </div> 
           <div className="text-white text-[36px] font-poppins w-[20rem]  ml-[1.4rem] ">
-            Up to 10% off Voucher
+            Up to 15% off 
           </div>
           <div>
             <a href="/shop" className="text-white underline ml-[1.6rem] mt-[1rem] font-poppins">Shop Now</a>
           </div>
         </>
       ),
-      image: (
-        <img
-      src="phonetwo.png"
-      alt="iPhone 14"
-      className="w-40 h-auto object-cover mx-auto mt-4"
-    />
-      ),
+    image: "iphoneTwo.png",
     },
     {
       description: (
         <>
         <div className="flex mt-[0rem] ml-[1rem]">
 <FaApple className="text-white text-[40px] mt-[-0.5rem]"/>
-         <p className="text-white ml-[1rem]">iPhone 14 Series </p>
+         <p className="text-white ml-[1rem]">iPhone New </p>
          </div> 
          <div className="text-white text-[36px] font-poppins w-[20rem]  ml-[1.4rem] ">
            Up to 10% off Voucher
@@ -129,7 +83,7 @@ setUser(null);
          </div>
        </>
       ),
-      image: "image3.jpg",
+     image: "iphoneOne.png"
     },
     {
       description: (
@@ -139,14 +93,14 @@ setUser(null);
          <p className="text-white ml-[1rem]">iPhone 14 Series </p>
          </div> 
          <div className="text-white text-[36px] font-poppins w-[20rem]  ml-[1.4rem] ">
-           Up to 10% off Voucher
+           Up to 20% off Voucher
          </div>
          <div>
            <a href="/shop" className="text-white underline ml-[1.6rem] mt-[1rem] font-poppins">Shop Now</a>
          </div>
        </>
       ),
-      image: "image4.jpg",
+     image: "iphoneTwo.png",
     },
     {
       description: (
@@ -156,14 +110,15 @@ setUser(null);
           <p className="text-white ml-[1rem]">iPhone 14 Series </p>
           </div> 
           <div className="text-white text-[36px] font-poppins w-[20rem]  ml-[1.4rem] ">
-            Up to 10% off Voucher
+            Up to 30% off 
           </div>
           <div>
             <a href="/shop" className="text-white underline ml-[1.6rem] mt-[1rem] font-poppins">Shop Now</a>
           </div>
         </>
       ),
-      image: "image5.jpg",
+      image: "iphoneOne.png",
+   
     },
   ];
 
@@ -190,6 +145,32 @@ setUser(null);
       });
     }
   };  
+ //wish list page and notificaons fuctionality
+ const [wishlist, setWishlist] = useState([]); // Wishlist state
+  const [wishlistCount, setWishlistCount] = useState(0); // Wishlist count
+
+  const handleWishlistToggle = (product) => {
+    const isInWishlist = wishlist.some((item) => item.id === product.id);
+
+    if (isInWishlist) {
+      // Remove product from wishlist
+      const updatedWishlist = wishlist.filter((item) => item.id !== product.id);
+      setWishlist(updatedWishlist);
+      setWishlistCount(updatedWishlist.length);
+    } else {
+      // Add product to wishlist
+      setWishlist([...wishlist, product]);
+      setWishlistCount(wishlist.length + 1);
+    }
+  };
+ 
+
+  const handleAddToWishlist = (product) => {
+    setWishlist((prevWishlist) => [...prevWishlist, product]);
+    console.log("Wishlist clicked for product:", product);
+  };
+  
+  const isInWishlist = wishlist.some((item) => item.id === product.id);
  
   //category section on click functionality
   const [categories, setCategories] = useState([]);
@@ -230,58 +211,34 @@ const handleClick = (categoryName) => {
     });
 };
 
+const handleAddToCart = (product) => {
+  const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
+  const productIndex = existingCart.findIndex((item) => item.productId === product.id);
+
+  if (productIndex > -1) {
+    // If product exists, update its quantity
+    existingCart[productIndex].quantity += 1;
+  } else {
+    // Add new product with complete details
+    existingCart.push({
+      productId: product.id,
+      title: product.title,
+      price: product.price,
+      image: product.image,
+      quantity: 1,
+    });
+  }
+
+  // Save updated cart back to localStorage
+  localStorage.setItem("cart", JSON.stringify(existingCart));
+  alert("Product added to cart!");
+};
+
   return ( 
         <div className="overflow-x-hidden">
             <Header/>
            
-            <div className="w-screen h-20 border p-7 overflow-hidden">
-<div className="flex  w-[1250px] h-9 ml-[8rem]  mr-[8rem] p-1">
-<div className="text-[18px] font-poppins font-semibold">Exclusive</div>
-<div className="ml-[12rem]">
-    <ul className="flex space-x-10 font-poppins">
-        <li><a href="/home">Home</a></li>
-        <li><a href="/contact">Contact</a></li>
-        <li><a href="/about">About</a></li>
-        <li><a href="/signup">Sign up</a></li>
-    </ul>
-</div>
-<div className="flex ml-[14rem]" ref={dropdownRef}>
-    <input type="text" placeholder="what are you looking for?" className="bg-gray-50 h-8 p-2 w-60 rounded-lg text-[12px] font-poppins"/>
-    <IoIosSearch className="ml-[-2rem] mt-[0.5rem] mr-[1rem] text-[20px]"/>
-<CiHeart className="text-[26px] mt-[0.3rem] ml-[1rem]"/>
-<BsCart2 className="text-[23px] mt-[0.3rem] ml-[1rem]"/>
-<FaUserCircle className="text-red-600 w-6 h-6 ml-[1rem] mt-[0.3rem]"
- onClick={() => setIsDropdownOpen((prev) => !prev)}
- />
-  {isDropdownOpen && (
-              <div className="absolute ml-[10rem] mt-8 w-52 bg-[#000000]/[10%] backdrop-blur-xl backdrop-opacity-95  rounded-  z-50">
-                <ul className="py-2 font-poppins text-[13px] text-white">
-                  <li className="flex px-4 py-2 hover:bg-red-600 cursor-pointer">
-                    <a href="/manage_account">
-                  < FaRegUser className="mt-[0.1rem] text-[16px] mr-[0.5rem]"/>  Manage My Account
-                  </a>
-                  </li>
-                  <li className="flex px-4 py-2 hover:bg-red-600 cursor-pointer">
-                   <PiShoppingBagOpenDuotone className="mt-[0.1rem] text-[16px] mr-[0.5rem]"/> My Orders
-                  </li>
-                  <li className=" flex px-4 py-2 hover:bg-red-600 cursor-pointer">
-                  <MdOutlineCancel className="mt-[0.1rem] text-[16px] mr-[0.5rem]"/>  My Cancellations
-                  </li>
-                  <li className=" flex px-4 py-2 hover:bg-red-600 cursor-pointer">
-                   <IoIosStarOutline className="mt-[0.1rem] text-[16px] mr-[0.5rem]"/> My Reviews
-                  </li>
-                  <li
-                  onClick={handleLogout}
-                   className=" flex px-4 py-2 hover:bg-red-600 cursor-pointer">
-                   <SlLogout className="mt-[0.1rem] text-[16px] mr-[0.5rem]"/> Logout
-                  </li>
-                </ul>
-              </div>
-            )}
-
-</div>
-</div>
-    </div>
+           <HomeNavbar/>
     <div className="flex">
         <div className="border-r-2  w-60 h-[320px] ml-[10rem]">
             <ul className="space-y-2 py-4">
@@ -305,22 +262,24 @@ const handleClick = (categoryName) => {
         <img
           src={slides[currentSlide].image}
           alt={`Slide ${currentSlide + 1}`}
-          className="object-cover rounded"
+          className="object-cover rounded w-[10rem] h-[15rem]"
         />
-      </div>
-
-      {/* Radio Buttons */}
-      <div className=" bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+         {/* Radio Buttons */}
+      <div className="mt-[1rem]  transform  flex space-x-2">
         {slides.map((_, index) => (
           <button
             key={index}
             className={`w-3 h-3 rounded-full ${
-              currentSlide === index ? "bg-blue-500" : "bg-gray-300"
+              currentSlide === index ? "bg-red-500" : "bg-gray-100"
             }`}
             onClick={() => setCurrentSlide(index)}
           ></button>
         ))}
       </div>
+      </div>
+      
+
+     
     </div>
 
     </div>
@@ -364,6 +323,7 @@ const handleClick = (categoryName) => {
                 <div className="bg-gray-100 w-8 h-8 pt-[6.5px] pl-[6px] rounded-full">
                   <IoIosHeartEmpty 
                   className="w-5 h-5" 
+                  onClick={() => handleAddToWishlist(product)}
                   />
                 </div>
                 <div className="bg-gray-100 w-8 h-8 pt-[6.5px] pl-[6px] rounded-full">
@@ -379,6 +339,7 @@ const handleClick = (categoryName) => {
             />
             </div>
            <button
+            onClick={handleAddToCart}
               className="w-[20rem] rounded-b ml-[10rem] mt-[1.7rem] transform -translate-x-1/2 bg-black text-white text-sm py-2 px-4 opacity-0 group-hover:opacity-100 transition-opacity"
             >
               Add to Cart
@@ -516,15 +477,21 @@ const handleClick = (categoryName) => {
     </div>
     <div className="grid grid-cols-4 gap-6 mx-[9rem] mt-[2rem]">
   {defaultProducts.map((product) => (
-    <div key={product.id} className="w-90 h-[340px] rounded-12">
+      <div key={product.id} className="w-90 h-[340px] rounded-12">
       <div className="w-[20rem] shadow-lg group rounded-[10px] h-80">
         <div className="flex">
           <div className="bg-red-600 w-14 h-7 rounded-md ml-[0.7rem] mt-[0.7rem] text-white/[70%] text-[12px] p-1 pl-3">
             -40%
           </div>
           <div className="ml-auto mt-[0.6rem] space-y-2">
-            <div className="bg-gray-100 w-8 h-8 pt-[6.5px] pl-[6px] rounded-full">
-              <IoIosHeartEmpty className="w-5 h-5" />
+            <div
+             onClick={() => handleWishlistToggle(product)}
+             className="bg-gray-100 w-8 h-8 pt-[6.5px] pl-[6px] rounded-full">
+              {isInWishlist ? (
+                        <IoIosHeart className="w-5 h-5 text-red-500" />
+                      ) : (
+                        <IoIosHeartEmpty className="w-5 h-5" />
+                      )}
             </div>
             <div className="bg-gray-100 w-8 h-8 pt-[6.5px] pl-[6px] rounded-full">
               <IoEyeOutline className="w-5 h-5" />
