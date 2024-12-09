@@ -17,7 +17,7 @@ import { FaApple } from "react-icons/fa";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import Header from "../components/Header";
 import { Link } from "react-router-dom";
-
+import { IoIosHeart } from "react-icons/io";
 import { RiCustomerServiceLine } from "react-icons/ri";
 import { AiOutlineSafetyCertificate } from "react-icons/ai";
 import { TbTruckDelivery } from "react-icons/tb";
